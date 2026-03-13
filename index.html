@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sinambela Finance | Advance Tracking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0f172a; color: white; min-height: 100vh; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; }
+        .admin-panel { display: none; }
+        input, select { background: rgba(255, 255, 255, 0.05) !important; border: 1px solid rgba(255, 255, 255, 0.1) !important; color: white !important; outline: none; padding: 12px; border-radius: 12px; width: 100%; }
+        .btn-action { background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); transition: 0.3s; }
+        .btn-action:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.4); }
+    </style>
+</head>
+<body class="p-4 md:p-10">
+
+    <div class="max-w-6xl mx-auto">
+        <nav class="flex justify-between items-center mb-10">
+            <div>
+                <h1 class="text-3xl font-black bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent italic tracking-tighter">KAS SINAMBELA</h1>
+                <p class="text-[10px] text-slate-500 font-bold tracking-[0.3em]">DATE-BASED TRACKING SYSTEM</p>
+            </div>
+            <button onclick="toggleAdmin()" class="glass px-6 py-2 border-indigo-500/30 text-xs font-bold uppercase tracking-widest">🔒 Admin Access</button>
+        </nav>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div class="glass p-8">
+                <p class="text-slate-500 text-[10px] font-bold uppercase mb-1">Saldo Awal (Excel)</p>
+                <h2 id="initial-balance-display" class="text-2xl font-bold italic">Rp 0</h2>
+            </div>
+            <div class="glass p-8 border-t-4 border-indigo-500">
+                <p class="text-slate-500 text-[10px] font-bold uppercase mb-1">Total Kas Terkumpul</p>
+                <h2 id="total-income" class="text-2xl font-bold text-emerald-400">Rp 0</h2>
+            </div>
+            <div class="glass p-8 bg-white/5">
+                <p class="text-slate-500 text-[10px] font-bold uppercase mb-1">Saldo Akhir Saat Ini</p>
+                <h2 id="current-balance" class="text-3xl font-black text-white">Rp 0</h2>
+            </div>
+        </div>
+
+        <div id="admin-panel" class="admin-panel space-y-8 mb-12">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="glass p-6 border-indigo-500/20 border">
+                    <h3 class="font-bold mb-4 text-xs uppercase tracking-widest">⚙️ Config Saldo</h3>
+                    <div class="space-y-4">
+                        <input type="number" id="set-initial-balance" placeholder="Saldo Awal Rp">
+                        <button onclick="saveSettings()" class="btn-action w-full py-3 rounded-xl font-bold text-xs uppercase">Simpan Saldo Awal</button>
+                    </div>
+                </div>
+
+                <div class="glass p-6 border-emerald-500/20 border">
+                    <h3 class="font-bold mb-4 text-xs uppercase tracking-widest text-emerald-400">💰 Bayar (Tambah 1 Bulan)</h3>
+                    <div class="space-y-4">
+                        <select id="member-select"></select>
+                        <input type="number" id="pay-amount" placeholder="Nominal Bayar Rp">
+                        <button onclick="savePayment()" class="w-full py-3 bg-emerald-600 rounded-xl font-bold text-xs uppercase hover:bg-emerald-500 transition-all">Input 1 Bulan</button>
+                    </div>
+                </div>
+
+                <div class="glass p-6 border-rose-500/20 border">
+                    <h3 class="font-bold mb-4 text-xs uppercase tracking-widest text-rose-400">📉 Set Lunas s/d Bulan</h3>
+                    <div class="space-y-4 text-xs">
+                        <select id="member-select-init"></select>
+                        <div class="grid grid-cols-2 gap-2">
+                            <select id="set-init-month">
+                                <option value="0">Januari</option><option value="1">Februari</option><option value="2">Maret</option>
+                                <option value="3">April</option><option value="4">Mei</option><option value="5">Juni</option>
+                                <option value="6">Juli</option><option value="7">Agustus</option><option value="8">September</option>
+                                <option value="9">Oktober</option><option value="10">November</option><option value="11">Desember</option>
+                            </select>
+                            <input type="number" id="set-init-year" value="2026">
+                        </div>
+                        <button onclick="setInitialLunas()" class="w-full py-3 bg-rose-600 rounded-xl font-bold uppercase">Update Status Awal</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass p-8 border-rose-500/20 border">
+                <h3 class="font-bold mb-4 text-xs uppercase tracking-widest text-rose-400">💸 Catat Pengeluaran</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <input type="text" id="exp-desc" placeholder="Keterangan">
+                    <input type="number" id="exp-amount" placeholder="Nominal Rp">
+                    <button onclick="saveExpense()" class="bg-rose-600 hover:bg-rose-500 rounded-xl font-bold uppercase text-xs px-6">Catat Keluar</button>
+                </div>
+            </div>
+            <button onclick="resetData()" class="text-[10px] text-rose-500 font-bold italic opacity-30">Reset Database</button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="glass overflow-hidden">
+                <div class="p-6 font-bold border-b border-white/10 bg-white/5 text-sm uppercase tracking-widest">Status Iuran Anggota</div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="text-slate-500 text-[10px] uppercase font-black tracking-widest bg-white/5">
+                            <tr><th class="p-5">Anggota</th><th class="p-5">Status / Keterangan</th></tr>
+                        </thead>
+                        <tbody id="member-table" class="divide-y divide-white/5"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="glass overflow-hidden">
+                <div class="p-6 font-bold border-b border-white/10 text-rose-400 bg-white/5 text-sm uppercase tracking-widest">Riwayat Pengeluaran</div>
+                <div class="overflow-x-auto max-h-[450px]">
+                    <table class="w-full text-left text-sm">
+                        <tbody id="expense-table" class="divide-y divide-white/5"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const NAMES = ["Martua", "Benny", "Netty", "Eva", "Daniel", "Hendry", "Agus", "Candra", "Lia", "Evy"];
+        const MONTHS = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+        
+        // Database
+        let db = JSON.parse(localStorage.getItem('sinambela_v5')) || {
+            initialBalance: 0,
+            income: [],
+            expenses: [],
+            // Default: Semua dianggap lunas s/d Desember 2025 (biar 2026 mulai nunggak)
+            members: NAMES.map(n => ({ name: n, paidUntil: { month: 11, year: 2025 } }))
+        };
+
+        let isAdmin = false;
+
+        function toggleAdmin() {
+            if (!isAdmin) {
+                if (prompt("Password Admin:") === "sinambela2026") {
+                    isAdmin = true;
+                    document.getElementById('admin-panel').style.display = 'block';
+                }
+            } else {
+                isAdmin = false;
+                document.getElementById('admin-panel').style.display = 'none';
+            }
+        }
+
+        function saveSettings() {
+            db.initialBalance = parseInt(document.getElementById('set-initial-balance').value) || 0;
+            updateUI();
+            alert("Saldo Awal Disimpan.");
+        }
+
+        // Set Status Awal (Misal dari Excel lama nunggak s/d bulan apa atau lunas s/d bulan apa)
+        function setInitialLunas() {
+            const name = document.getElementById('member-select-init').value;
+            const month = parseInt(document.getElementById('set-init-month').value);
+            const year = parseInt(document.getElementById('set-init-year').value);
+            
+            const idx = db.members.findIndex(m => m.name === name);
+            db.members[idx].paidUntil = { month, year };
+            updateUI();
+            alert(`Status ${name} diatur: Lunas s/d ${MONTHS[month]} ${year}`);
+        }
+
+        function savePayment() {
+            const name = document.getElementById('member-select').value;
+            const amount = parseInt(document.getElementById('pay-amount').value) || 0;
+            if (amount <= 0) return alert("Masukkan nominal!");
+
+            db.income.push({ name, amount, date: new Date().toLocaleDateString('id-ID') });
+
+            // Logic Tambah 1 Bulan
+            const idx = db.members.findIndex(m => m.name === name);
+            let currentPaid = db.members[idx].paidUntil;
+            
+            if (currentPaid.month === 11) {
+                db.members[idx].paidUntil = { month: 0, year: currentPaid.year + 1 };
+            } else {
+                db.members[idx].paidUntil = { month: currentPaid.month + 1, year: currentPaid.year };
+            }
+
+            updateUI();
+            document.getElementById('pay-amount').value = '';
+            alert(`Setoran ${name} berhasil. Status diperbarui.`);
+        }
+
+        function saveExpense() {
+            const desc = document.getElementById('exp-desc').value;
+            const amount = parseInt(document.getElementById('exp-amount').value) || 0;
+            if(!desc || amount <= 0) return;
+            db.expenses.push({ desc, amount, date: new Date().toLocaleDateString('id-ID') });
+            updateUI();
+            document.getElementById('exp-desc').value = '';
+            document.getElementById('exp-amount').value = '';
+        }
+
+        function updateUI() {
+            const tin = db.income.reduce((a, b) => a + b.amount, 0);
+            const tout = db.expenses.reduce((a, b) => a + b.amount, 0);
+            document.getElementById('initial-balance-display').innerText = `Rp ${db.initialBalance.toLocaleString()}`;
+            document.getElementById('total-income').innerText = `Rp ${tin.toLocaleString()}`;
+            document.getElementById('current-balance').innerText = `Rp ${(db.initialBalance + tin - tout).toLocaleString()}`;
+
+            renderTables();
+            localStorage.setItem('sinambela_v5', JSON.stringify(db));
+        }
+
+        function renderTables() {
+            const now = new Date();
+            const currM = now.getMonth();
+            const currY = now.getFullYear();
+
+            document.getElementById('member-table').innerHTML = db.members.map(m => {
+                // Hitung Selisih Bulan
+                const diff = (m.paidUntil.year - currY) * 12 + (m.paidUntil.month - currM);
+                let statusHTML = "";
+
+                if (diff >= 0) {
+                    // LUNAS ATAU DULUAN
+                    statusHTML = `
+                        <div class="flex flex-col">
+                            <span class="text-emerald-400 font-bold">LUNAS ✅</span>
+                            <span class="text-[10px] text-slate-500 uppercase font-medium">S/D ${MONTHS[m.paidUntil.month]} ${m.paidUntil.year} ${diff > 0 ? '(Bayar Cepat)' : ''}</span>
+                        </div>
+                    `;
+                } else {
+                    // NUNGGAK
+                    statusHTML = `
+                        <div class="flex flex-col">
+                            <span class="text-rose-500 font-bold uppercase">NUNGGAK ${Math.abs(diff)} BULAN ⏳</span>
+                            <span class="text-[10px] text-slate-500 font-medium italic">Terakhir Bayar: ${MONTHS[m.paidUntil.month]} ${m.paidUntil.year}</span>
+                        </div>
+                    `;
+                }
+
+                return `
+                    <tr class="hover:bg-white/5 transition-all">
+                        <td class="p-5 font-bold text-slate-200 text-base">${m.name}</td>
+                        <td class="p-5">${statusHTML}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            document.getElementById('expense-table').innerHTML = db.expenses.length ? db.expenses.map(e => `
+                <tr class="hover:bg-white/5">
+                    <td class="p-5 text-xs text-slate-300">${e.desc}</td>
+                    <td class="p-5 text-rose-400 font-bold text-xs">Rp ${e.amount.toLocaleString()}</td>
+                    <td class="p-5 text-right text-slate-500 text-[10px]">${e.date}</td>
+                </tr>
+            `).reverse().join('') : '<tr><td class="p-10 text-center text-slate-600 italic">Riwayat Kosong</td></tr>';
+        }
+
+        function resetData() {
+            if(confirm("Hapus Permanen?")) { localStorage.removeItem('sinambela_v5'); location.reload(); }
+        }
+
+        (function() {
+            const opt = NAMES.map(n => `<option value="${n}">${n}</option>`).join('');
+            document.getElementById('member-select').innerHTML = opt;
+            document.getElementById('member-select-init').innerHTML = opt;
+            updateUI();
+        })();
+    </script>
+</body>
+</html>
