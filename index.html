@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sinambela Finance | Advance Tracking</title>
+    <title>KAS SINAMBELA | Official</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -17,99 +17,95 @@
 </head>
 <body class="p-4 md:p-10">
 
-    <div class="max-w-6xl mx-auto">
+    <div class="max-w-7xl mx-auto">
         <nav class="flex justify-between items-center mb-10">
             <div>
-                <h1 class="text-3xl font-black bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent italic tracking-tighter">KAS SINAMBELA</h1>
-                <p class="text-[10px] text-slate-500 font-bold tracking-[0.3em]">DATE-BASED TRACKING SYSTEM</p>
+                <h1 class="text-3xl font-black bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent italic tracking-tighter text-white">KAS SINAMBELA</h1>
+                <p class="text-[10px] text-slate-500 font-bold tracking-[0.3em]">RECORDS SYNCED v6.1</p>
             </div>
-            <button onclick="toggleAdmin()" class="glass px-6 py-2 border-indigo-500/30 text-xs font-bold uppercase tracking-widest">🔒 Admin Access</button>
+            <button onclick="toggleAdmin()" class="glass px-6 py-2 border-indigo-500/30 text-xs font-bold uppercase tracking-widest text-white">🔒 Admin Access</button>
         </nav>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-            <div class="glass p-8">
-                <p class="text-slate-500 text-[10px] font-bold uppercase mb-1">Saldo Awal (Excel)</p>
-                <h2 id="initial-balance-display" class="text-2xl font-bold italic">Rp 0</h2>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-10 text-white">
+            <div class="glass p-6">
+                <p class="text-slate-500 text-[10px] font-bold uppercase mb-1 text-center">Saldo Awal</p>
+                <h2 id="initial-balance-display" class="text-xl font-bold italic text-center">Rp 0</h2>
             </div>
-            <div class="glass p-8 border-t-4 border-indigo-500">
-                <p class="text-slate-500 text-[10px] font-bold uppercase mb-1">Total Kas Terkumpul</p>
-                <h2 id="total-income" class="text-2xl font-bold text-emerald-400">Rp 0</h2>
+            <div class="glass p-6 border-t-4 border-emerald-500">
+                <p class="text-slate-500 text-[10px] font-bold uppercase mb-1 text-center text-emerald-400">Total Iuran + Patungan</p>
+                <h2 id="total-income" class="text-xl font-bold text-center">Rp 0</h2>
             </div>
-            <div class="glass p-8 bg-white/5">
-                <p class="text-slate-500 text-[10px] font-bold uppercase mb-1">Saldo Akhir Saat Ini</p>
-                <h2 id="current-balance" class="text-3xl font-black text-white">Rp 0</h2>
+            <div class="glass p-6 border-t-4 border-rose-500">
+                <p class="text-slate-500 text-[10px] font-bold uppercase mb-1 text-center text-rose-400">Total Pengeluaran</p>
+                <h2 id="total-expense" class="text-xl font-bold text-center">Rp 0</h2>
+            </div>
+            <div class="glass p-6 bg-indigo-600/20 border-t-4 border-white">
+                <p class="text-slate-500 text-[10px] font-bold uppercase mb-1 text-center">Saldo Akhir</p>
+                <h2 id="current-balance" class="text-2xl font-black text-center text-white">Rp 0</h2>
             </div>
         </div>
 
-        <div id="admin-panel" class="admin-panel space-y-8 mb-12">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="glass p-6 border-indigo-500/20 border">
-                    <h3 class="font-bold mb-4 text-xs uppercase tracking-widest">⚙️ Config Saldo</h3>
-                    <div class="space-y-4">
-                        <input type="number" id="set-initial-balance" placeholder="Saldo Awal Rp">
-                        <button onclick="saveSettings()" class="btn-action w-full py-3 rounded-xl font-bold text-xs uppercase">Simpan Saldo Awal</button>
+        <div id="admin-panel" class="admin-panel space-y-6 mb-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="glass p-6 border-indigo-500/20 border space-y-4">
+                    <h3 class="font-bold text-xs uppercase tracking-widest text-white">💰 Input Iuran Rutin</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <select id="member-select" class="text-white"></select>
+                        <input type="number" id="pay-amount" placeholder="Nominal Iuran Rp" class="text-white">
                     </div>
+                    <button onclick="savePayment()" class="w-full py-3 bg-emerald-600 rounded-xl font-bold text-xs uppercase text-white hover:bg-emerald-500">Input 1 Bulan</button>
                 </div>
 
-                <div class="glass p-6 border-emerald-500/20 border">
-                    <h3 class="font-bold mb-4 text-xs uppercase tracking-widest text-emerald-400">💰 Bayar (Tambah 1 Bulan)</h3>
-                    <div class="space-y-4">
-                        <select id="member-select"></select>
-                        <input type="number" id="pay-amount" placeholder="Nominal Bayar Rp">
-                        <button onclick="savePayment()" class="w-full py-3 bg-emerald-600 rounded-xl font-bold text-xs uppercase hover:bg-emerald-500 transition-all">Input 1 Bulan</button>
+                <div class="glass p-6 border-purple-500/20 border space-y-4">
+                    <h3 class="font-bold text-xs uppercase tracking-widest text-purple-400">🤝 Patungan Khusus</h3>
+                    <div class="grid grid-cols-2 gap-4 text-white">
+                        <select id="member-select-patungan"></select>
+                        <input type="number" id="patungan-amount" placeholder="Nominal Rp">
                     </div>
+                    <input type="text" id="patungan-desc" placeholder="Keterangan Acara" class="text-white">
+                    <button onclick="savePatungan()" class="w-full py-3 bg-purple-600 rounded-xl font-bold text-xs uppercase text-white">Input Patungan</button>
                 </div>
+            </div>
 
-                <div class="glass p-6 border-rose-500/20 border">
-                    <h3 class="font-bold mb-4 text-xs uppercase tracking-widest text-rose-400">📉 Set Lunas s/d Bulan</h3>
-                    <div class="space-y-4 text-xs">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 text-white">
+                 <div class="glass p-6 border-white/10 border space-y-4">
+                    <h3 class="font-bold text-xs uppercase tracking-widest">⚙️ Config Master</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="number" id="set-initial-balance" placeholder="Set Ulang Saldo Awal">
+                        <button onclick="saveSettings()" class="bg-indigo-600 rounded-xl font-bold text-[10px]">UPDATE SALDO</button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
                         <select id="member-select-init"></select>
-                        <div class="grid grid-cols-2 gap-2">
-                            <select id="set-init-month">
+                        <div class="flex gap-2">
+                            <select id="set-init-month" class="text-xs">
                                 <option value="0">Januari</option><option value="1">Februari</option><option value="2">Maret</option>
                                 <option value="3">April</option><option value="4">Mei</option><option value="5">Juni</option>
                                 <option value="6">Juli</option><option value="7">Agustus</option><option value="8">September</option>
                                 <option value="9">Oktober</option><option value="10">November</option><option value="11">Desember</option>
                             </select>
-                            <input type="number" id="set-init-year" value="2026">
+                            <input type="number" id="set-init-year" value="2026" class="w-20 text-xs text-center">
                         </div>
-                        <button onclick="setInitialLunas()" class="w-full py-3 bg-rose-600 rounded-xl font-bold uppercase">Update Status Awal</button>
                     </div>
+                    <button onclick="setInitialLunas()" class="w-full py-2 bg-rose-600 rounded-xl font-bold text-[10px]">CORRECT MEMBER STATUS</button>
                 </div>
-            </div>
 
-            <div class="glass p-8 border-rose-500/20 border">
-                <h3 class="font-bold mb-4 text-xs uppercase tracking-widest text-rose-400">💸 Catat Pengeluaran</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <input type="text" id="exp-desc" placeholder="Keterangan">
-                    <input type="number" id="exp-amount" placeholder="Nominal Rp">
-                    <button onclick="saveExpense()" class="bg-rose-600 hover:bg-rose-500 rounded-xl font-bold uppercase text-xs px-6">Catat Keluar</button>
+                <div class="glass p-6 border-rose-500/20 border space-y-4">
+                    <h3 class="font-bold text-xs uppercase tracking-widest text-rose-400 italic">💸 Pengeluaran Kas</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" id="exp-desc" placeholder="Keterangan">
+                        <input type="number" id="exp-amount" placeholder="Nominal Rp">
+                    </div>
+                    <button onclick="saveExpense()" class="w-full py-2 bg-rose-600 rounded-xl font-bold text-[10px]">CATAT PENGELUARAN</button>
                 </div>
             </div>
-            <button onclick="resetData()" class="text-[10px] text-rose-500 font-bold italic opacity-30">Reset Database</button>
+            
+            <button onclick="resetData()" class="text-[10px] text-rose-500 font-bold italic opacity-30 block mx-auto">Full Reset Database</button>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div class="glass overflow-hidden">
-                <div class="p-6 font-bold border-b border-white/10 bg-white/5 text-sm uppercase tracking-widest">Status Iuran Anggota</div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-sm">
-                        <thead class="text-slate-500 text-[10px] uppercase font-black tracking-widest bg-white/5">
-                            <tr><th class="p-5">Anggota</th><th class="p-5">Status / Keterangan</th></tr>
-                        </thead>
-                        <tbody id="member-table" class="divide-y divide-white/5"></tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="glass overflow-hidden">
-                <div class="p-6 font-bold border-b border-white/10 text-rose-400 bg-white/5 text-sm uppercase tracking-widest">Riwayat Pengeluaran</div>
-                <div class="overflow-x-auto max-h-[450px]">
-                    <table class="w-full text-left text-sm">
-                        <tbody id="expense-table" class="divide-y divide-white/5"></tbody>
-                    </table>
-                </div>
-            </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 text-white">
+            <div class="glass overflow-hidden"><div class="p-4 font-bold border-b border-white/10 bg-white/5 text-xs text-center">STATUS IURAN</div><table class="w-full text-left text-sm"><tbody id="member-table" class="divide-y divide-white/5"></tbody></table></div>
+            <div class="glass overflow-hidden"><div class="p-4 font-bold border-b border-white/10 bg-purple-500/10 text-purple-400 text-xs text-center">PATUNGAN KHUSUS</div><table class="w-full text-left text-sm"><tbody id="patungan-table" class="divide-y divide-white/5"></tbody></table></div>
+            <div class="glass overflow-hidden"><div class="p-4 font-bold border-b border-white/10 bg-rose-500/10 text-rose-400 text-xs text-center text-white">PENGELUARAN</div><table class="w-full text-left text-sm"><tbody id="expense-table" class="divide-y divide-white/5"></tbody></table></div>
         </div>
     </div>
 
@@ -117,13 +113,26 @@
         const NAMES = ["Martua", "Benny", "Netty", "Eva", "Daniel", "Hendry", "Agus", "Candra", "Lia", "Evy"];
         const MONTHS = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
         
-        // Database
-        let db = JSON.parse(localStorage.getItem('sinambela_v5')) || {
-            initialBalance: 0,
+        // --- DATA DEFAULT DARI GAMBAR ---
+        const initialStatus = {
+            "Martua": { month: 3, year: 2026 },  // Lunas April = Index 3 (Jan=0)
+            "Benny": { month: 8, year: 2024 },   // Terakhir Sept 24 = Index 8
+            "Netty": { month: 2, year: 2026 },   // Lunas Maret = Index 2
+            "Eva": { month: 2, year: 2026 },     // Lunas Maret = Index 2
+            "Daniel": { month: 2, year: 2026 },  // Lunas Maret = Index 2
+            "Hendry": { month: 6, year: 2025 },  // Terakhir Juli 25 = Index 6
+            "Agus": { month: 2, year: 2026 },    // Lunas Maret = Index 2
+            "Candra": { month: 1, year: 2026 },  // Terakhir Feb 26 = Index 1
+            "Lia": { month: 2, year: 2026 },     // Lunas Maret = Index 2
+            "Evy": { month: 3, year: 2026 }      // Lunas April = Index 3
+        };
+
+        let db = JSON.parse(localStorage.getItem('sinambela_v6_1')) || {
+            initialBalance: 262113, // --- SALDO AWAL REQUEST ---
             income: [],
+            patungan: [],
             expenses: [],
-            // Default: Semua dianggap lunas s/d Desember 2025 (biar 2026 mulai nunggak)
-            members: NAMES.map(n => ({ name: n, paidUntil: { month: 11, year: 2025 } }))
+            members: NAMES.map(n => ({ name: n, paidUntil: initialStatus[n] }))
         };
 
         let isAdmin = false;
@@ -143,41 +152,41 @@
         function saveSettings() {
             db.initialBalance = parseInt(document.getElementById('set-initial-balance').value) || 0;
             updateUI();
-            alert("Saldo Awal Disimpan.");
+            alert("Saldo Master Diperbarui.");
         }
 
-        // Set Status Awal (Misal dari Excel lama nunggak s/d bulan apa atau lunas s/d bulan apa)
         function setInitialLunas() {
             const name = document.getElementById('member-select-init').value;
             const month = parseInt(document.getElementById('set-init-month').value);
             const year = parseInt(document.getElementById('set-init-year').value);
-            
             const idx = db.members.findIndex(m => m.name === name);
             db.members[idx].paidUntil = { month, year };
             updateUI();
-            alert(`Status ${name} diatur: Lunas s/d ${MONTHS[month]} ${year}`);
+            alert(`Sync manual ${name} Berhasil.`);
         }
 
         function savePayment() {
             const name = document.getElementById('member-select').value;
             const amount = parseInt(document.getElementById('pay-amount').value) || 0;
-            if (amount <= 0) return alert("Masukkan nominal!");
-
+            if (amount <= 0) return alert("Nominal?");
             db.income.push({ name, amount, date: new Date().toLocaleDateString('id-ID') });
-
-            // Logic Tambah 1 Bulan
             const idx = db.members.findIndex(m => m.name === name);
-            let currentPaid = db.members[idx].paidUntil;
-            
-            if (currentPaid.month === 11) {
-                db.members[idx].paidUntil = { month: 0, year: currentPaid.year + 1 };
-            } else {
-                db.members[idx].paidUntil = { month: currentPaid.month + 1, year: currentPaid.year };
-            }
-
+            let p = db.members[idx].paidUntil;
+            if (p.month === 11) { db.members[idx].paidUntil = { month: 0, year: p.year + 1 }; }
+            else { db.members[idx].paidUntil = { month: p.month + 1, year: p.year }; }
             updateUI();
             document.getElementById('pay-amount').value = '';
-            alert(`Setoran ${name} berhasil. Status diperbarui.`);
+        }
+
+        function savePatungan() {
+            const name = document.getElementById('member-select-patungan').value;
+            const amount = parseInt(document.getElementById('patungan-amount').value) || 0;
+            const desc = document.getElementById('patungan-desc').value;
+            if (amount <= 0 || !desc) return alert("Lengkapi data patungan!");
+            db.patungan.push({ name, amount, desc, date: new Date().toLocaleDateString('id-ID') });
+            updateUI();
+            document.getElementById('patungan-amount').value = '';
+            document.getElementById('patungan-desc').value = '';
         }
 
         function saveExpense() {
@@ -191,68 +200,45 @@
         }
 
         function updateUI() {
-            const tin = db.income.reduce((a, b) => a + b.amount, 0);
-            const tout = db.expenses.reduce((a, b) => a + b.amount, 0);
+            const totalI = db.income.reduce((a, b) => a + b.amount, 0);
+            const totalP = db.patungan.reduce((a, b) => a + b.amount, 0);
+            const totalO = db.expenses.reduce((a, b) => a + b.amount, 0);
             document.getElementById('initial-balance-display').innerText = `Rp ${db.initialBalance.toLocaleString()}`;
-            document.getElementById('total-income').innerText = `Rp ${tin.toLocaleString()}`;
-            document.getElementById('current-balance').innerText = `Rp ${(db.initialBalance + tin - tout).toLocaleString()}`;
-
+            document.getElementById('total-income').innerText = `Rp ${(totalI + totalP).toLocaleString()}`;
+            document.getElementById('total-expense').innerText = `Rp ${totalO.toLocaleString()}`;
+            document.getElementById('current-balance').innerText = `Rp ${(db.initialBalance + totalI + totalP - totalO).toLocaleString()}`;
             renderTables();
-            localStorage.setItem('sinambela_v5', JSON.stringify(db));
+            localStorage.setItem('sinambela_v6_1', JSON.stringify(db));
         }
 
         function renderTables() {
             const now = new Date();
-            const currM = now.getMonth();
-            const currY = now.getFullYear();
+            const cm = now.getMonth();
+            const cy = now.getFullYear();
 
             document.getElementById('member-table').innerHTML = db.members.map(m => {
-                // Hitung Selisih Bulan
-                const diff = (m.paidUntil.year - currY) * 12 + (m.paidUntil.month - currM);
-                let statusHTML = "";
-
-                if (diff >= 0) {
-                    // LUNAS ATAU DULUAN
-                    statusHTML = `
-                        <div class="flex flex-col">
-                            <span class="text-emerald-400 font-bold">LUNAS ✅</span>
-                            <span class="text-[10px] text-slate-500 uppercase font-medium">S/D ${MONTHS[m.paidUntil.month]} ${m.paidUntil.year} ${diff > 0 ? '(Bayar Cepat)' : ''}</span>
-                        </div>
-                    `;
-                } else {
-                    // NUNGGAK
-                    statusHTML = `
-                        <div class="flex flex-col">
-                            <span class="text-rose-500 font-bold uppercase">NUNGGAK ${Math.abs(diff)} BULAN ⏳</span>
-                            <span class="text-[10px] text-slate-500 font-medium italic">Terakhir Bayar: ${MONTHS[m.paidUntil.month]} ${m.paidUntil.year}</span>
-                        </div>
-                    `;
-                }
-
-                return `
-                    <tr class="hover:bg-white/5 transition-all">
-                        <td class="p-5 font-bold text-slate-200 text-base">${m.name}</td>
-                        <td class="p-5">${statusHTML}</td>
-                    </tr>
-                `;
+                const diff = (m.paidUntil.year - cy) * 12 + (m.paidUntil.month - cm);
+                let status = diff >= 0 ? 
+                    `<span class="text-emerald-400 font-bold">LUNAS ✅</span><br><span class="text-[8px] text-slate-500 uppercase">s/d ${MONTHS[m.paidUntil.month]} ${m.paidUntil.year} ${diff > 0 ? '(CEPAT)':''}</span>` : 
+                    `<span class="text-rose-500 font-bold uppercase">NUNGGAK ${Math.abs(diff)} BLN</span><br><span class="text-[8px] text-slate-500">Last: ${MONTHS[m.paidUntil.month]} ${m.paidUntil.year}</span>`;
+                return `<tr class="border-b border-white/5"><td class="p-3 font-bold text-xs">${m.name}</td><td class="p-3 text-right">${status}</td></tr>`;
             }).join('');
 
-            document.getElementById('expense-table').innerHTML = db.expenses.length ? db.expenses.map(e => `
-                <tr class="hover:bg-white/5">
-                    <td class="p-5 text-xs text-slate-300">${e.desc}</td>
-                    <td class="p-5 text-rose-400 font-bold text-xs">Rp ${e.amount.toLocaleString()}</td>
-                    <td class="p-5 text-right text-slate-500 text-[10px]">${e.date}</td>
-                </tr>
-            `).reverse().join('') : '<tr><td class="p-10 text-center text-slate-600 italic">Riwayat Kosong</td></tr>';
+            document.getElementById('patungan-table').innerHTML = db.patungan.map(p => `
+                <tr class="border-b border-white/5"><td class="p-3 text-[10px]">${p.desc}<br><span class="text-[8px] text-slate-500">${p.name}</span></td><td class="p-3 text-right text-xs font-bold">Rp ${p.amount.toLocaleString()}</td></tr>
+            `).reverse().join('') || '<tr><td colspan="2" class="p-5 text-center text-slate-600 text-xs italic">Kosong</td></tr>';
+
+            document.getElementById('expense-table').innerHTML = db.expenses.map(e => `
+                <tr class="border-b border-white/5"><td class="p-3 text-[10px] text-white">${e.desc}<br><span class="text-[8px] text-slate-500">${e.date}</span></td><td class="p-3 text-right text-xs font-bold text-rose-400">Rp ${e.amount.toLocaleString()}</td></tr>
+            `).reverse().join('') || '<tr><td colspan="2" class="p-5 text-center text-slate-600 text-xs italic text-white">Kosong</td></tr>';
         }
 
-        function resetData() {
-            if(confirm("Hapus Permanen?")) { localStorage.removeItem('sinambela_v5'); location.reload(); }
-        }
+        function resetData() { if(confirm("Hapus semua data?")) { localStorage.removeItem('sinambela_v6_1'); location.reload(); } }
 
         (function() {
             const opt = NAMES.map(n => `<option value="${n}">${n}</option>`).join('');
             document.getElementById('member-select').innerHTML = opt;
+            document.getElementById('member-select-patungan').innerHTML = opt;
             document.getElementById('member-select-init').innerHTML = opt;
             updateUI();
         })();
